@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <h1>Igor Czuryło</h1>
+  <h1>Kalendarz Adwętowy</h1>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advent Calendar</title>
+  <style>
+
+
+body {
+    margin: 0;
+    padding: 0;
+    background: url('https://teleskop.pl/data/include/cms/BLOG-TELESKOP/Astronomiczna-zima/zima.webp') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    color: #111111; 
+}
+            
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .door {
+      border: 1px solid rgb(24, 43, 214);
+      padding: 20px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .door:hover {
+      background-color: #f00606;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="calendar" id="calendar">
+  
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const calendarContainer = document.getElementById("calendar");
+
+    
+    const adventVideoLinks = [
+      "https://www.youtube.com/watch?v=ds6oTHYmqRc&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=5",
+      "https://www.youtube.com/watch?v=gdjFeiiJaPI&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=4",
+      "https://www.youtube.com/watch?v=B0zaDApGBbI&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=3",
+      "https://www.youtube.com/watch?v=eI3dFEVCCBw&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=6",
+      "https://www.youtube.com/watch?v=thlwwhieEfI&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=7",
+      "https://www.youtube.com/watch?v=0qvFWmC3bps&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=8",
+      "https://www.youtube.com/watch?v=jnXxxKZ57Tw&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=9",
+      "https://www.youtube.com/watch?v=EvDxSW8mzvU&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=10",
+      "https://www.youtube.com/watch?v=TXRuvssTc5o&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=11",
+      "https://www.youtube.com/watch?v=oq3gUm1Q1hU&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=12",
+      "https://www.youtube.com/watch?v=616KeDFgC9Y&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=13",
+      "https://www.youtube.com/watch?v=qEqiNInbdto&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=14",
+      "https://www.youtube.com/watch?v=J-8VCL4uSUc&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=15",
+      "https://www.youtube.com/watch?v=9O9Y3XyCt0s&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=16",
+      "https://www.youtube.com/watch?v=tMfneSPxuwk&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=17",
+      "https://www.youtube.com/watch?v=bjQzJAKxTrE&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=18",
+      "https://www.youtube.com/watch?v=gFtb3EtjEic&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=19",
+      "https://www.youtube.com/watch?v=wt6Nd8Br50I&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=20",
+      "https://www.youtube.com/watch?v=R8CBoVc_OMI&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=21",
+      "https://www.youtube.com/watch?v=EGKuomlKTbU&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=22",
+      "https://www.youtube.com/watch?v=E8gmARGvPlI&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=1",
+      "https://www.youtube.com/watch?v=-kqqkavf9xM",
+      "https://www.youtube.com/watch?v=yXQViqx6GMY&list=PL9shVBur1zCwt6JectY14FUebdLI-8AU4&index=2",
+      "https://www.youtube.com/watch?v=aSVWDHK7WcA"
+    ];
+
+
+    
+    for (let i = 1; i <= 24; i++) {
+      const door = document.createElement("div");
+      door.className = "door";
+      door.textContent = i;
+      door.addEventListener("click", () => openDoor(i));
+      calendarContainer.appendChild(door);
+    }
+
+    function openDoor(day) {
+      const door = document.getElementsByClassName("door")[day - 1];
+      door.classList.add("hidden");
+
+      
+      window.location.href = adventVideoLinks[day - 1];
+    }
+  });
+</script>
+
+</body>
+</html>
